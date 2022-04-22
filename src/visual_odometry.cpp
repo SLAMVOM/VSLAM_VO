@@ -60,7 +60,7 @@ void VisualOdometry::Run() {
         poses_estimated.push_back(frames_all[i]->pose_.inverse());
     } // added by MT, April 15, 2022
     poses_truth = ReadTrajectory(Config::Get<std::string>("groundtruth_dir")); // added by MT, April 15, 2022
-    DrawTrajectory(poses_truth, poses_estimated); // added by MT, April 15, 2022
+    DrawTrajectory(poses_truth, poses_estimated, 1); // added by MT, April 15, 2022; 1 - to plot axes of estimated poses
     std::cin.get(); // added by MT, April 15, 2022
 
     LOG(INFO) << "VO exit";
