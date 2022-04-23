@@ -3,6 +3,7 @@
 # change the following directory to the dataset directory
 dataset_dir: /media/mt/F418BADF18BA9FD2/KITTI/odometry/data_odometry_gray/dataset/sequences/03
 groundtruth_dir: /media/mt/F418BADF18BA9FD2/KITTI/odometry/data_odometry_poses/dataset/poses/03.txt
+outputPoints_dir: ../result/key_points.txt
 
 # camera intrinsics
 camera.fx: 517.3

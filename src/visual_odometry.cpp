@@ -1,3 +1,9 @@
+// Reference: Gao VSLAM Book 2nd Chinese Ed. Ch 13
+//
+// Modified by: MT
+// First Edit: 2022-April-15
+// Previous Edit: 2022-April-22
+
 #include "myslam/visual_odometry.h"
 #include <chrono>
 #include "myslam/config.h"
@@ -46,22 +52,34 @@ void VisualOdometry::Run() {
     }
 
     backend_->Stop();
-    std::cin.get(); // added by MT, April 15, 2022
+    std::cin.get(); // wait for a key press
     viewer_->Close();
-    
-    auto frames_all = map_->GetAllKeyFrames(); // added by MT, April 15, 2022
-    auto points_all = map_->GetAllMapPoints(); // added by MT, April 15, 2022
-    std::cout << "\nTotal num of frames stored: " << frames_all.size() << std::endl; // added by MT, April 15, 2022
-    std::cout << "Total num of points stored: " << points_all.size() << std::endl; // added by MT, April 15, 2022
 
-    // Note: the pose is Twc, and we want Tcw when plotting
+    auto frames_all = map_->GetAllKeyFrames(); // obtain stored key frames for plotting
+    auto points_all = map_->GetAllMapPoints(); // obtain stored key points for exporting to file
+    std::cout << "\nTotal num of frames stored: " << frames_all.size() << std::endl;
+    std::cout << "Total num of points stored: " << points_all.size() << std::endl;
+
+
+    ////////// Plotting the estimated and groundtruth trajectories //////////
+    // Note: the pose is T_cw, and we want T_wc when plotting
+    // T_wc = [R_wc | t_w^{cw}], the translation is from the world frame origin
+    // to the current camera frame origin expressed in the world frame.
+    // In this setting, we can directly plot the translation from each T_wc to
+    // obtain the (estimated) trajectory of the camera (as well as the vehicle).
     TrajectoryType poses_truth, poses_estimated;
     for (int i = 0; i < frames_all.size(); i++) {
         poses_estimated.push_back(frames_all[i]->pose_.inverse());
-    } // added by MT, April 15, 2022
-    poses_truth = ReadTrajectory(Config::Get<std::string>("groundtruth_dir")); // added by MT, April 15, 2022
-    DrawTrajectory(poses_truth, poses_estimated, 1); // added by MT, April 15, 2022; 1 - to plot axes of estimated poses
-    std::cin.get(); // added by MT, April 15, 2022
+    }
+    poses_truth = ReadTrajectory(Config::Get<std::string>("groundtruth_dir")); // Read groundtruth from file
+    DrawTrajectory(poses_truth, poses_estimated, 1); // >0 - to plot axes of estimated poses; <=0 for not plotting camera axes
+    std::cin.get(); // wait for a key press to end the VO process
+
+
+    ////////// Storing the estimated poses, points, and point cloud //////////
+    std::cout << "Saving all keypoints to file." << std::endl;
+    WritePointsToFile(Config::Get<std::string>("outputPoints_dir"), points_all);
+    std::cout << "All points saved.\n" << std::endl;
 
     LOG(INFO) << "VO exit";
 }

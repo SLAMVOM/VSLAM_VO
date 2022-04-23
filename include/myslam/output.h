@@ -10,15 +10,32 @@
 
 #pragma once
 
-#include "myslam/config.h"
-#include "myslam/common_include.h"
-#include "myslam/rotation.h"
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <unistd.h>
 #include <pangolin/pangolin.h>
 #include <sophus/se3.hpp>
 #include <Eigen/Core>
 
-using namespace std;
+#include "myslam/config.h"
+#include "myslam/common_include.h"
+#include "myslam/rotation.h"
+// #include "myslam/map.h"
+#include "myslam/mappoint.h"
 
+using namespace std;
+using namespace myslam;
+
+typedef std::unordered_map<unsigned long, MapPoint::Ptr> LandmarksType; // Unordered map is an associative container that contains key-value pairs with unique keys
+
+// save keypoints extracted to text file
+void WritePointsToFile(const std::string &filename, const LandmarksType &points_all);
+
+
+// TODO below:
+// // save results to ply pointcloud
+// void WriteCloudToPLYFile(const std::string &filename) const;
+
+// // normalize the pointcloud to make the centroid of the cloud to be zero
+// void PointCLoudNormalize();

@@ -1,3 +1,9 @@
+// Reference: Gao VSLAM Book 2nd Chinese Ed. Ch 13
+//
+// Modified by: MT
+// First Edit: 2022-April-15
+// Previous Edit: 2022-April-22
+
 #pragma once
 #ifndef MYSLAM_VISUAL_ODOMETRY_H
 #define MYSLAM_VISUAL_ODOMETRY_H
@@ -9,6 +15,7 @@
 #include "myslam/viewer.h"
 
 #include "myslam/groundtruth.h" // added by MT on 2022-April-15
+#include "myslam/output.h" // added by MT on 2022-April-22
 
 namespace myslam {
 
@@ -41,7 +48,7 @@ class VisualOdometry {
 
         /// Acquire the frontend status
         FrontendStatus GetFrontendStatus() const { return frontend_->GetStatus(); }
-    
+
     private:
         bool inited_ = false;
         std::string config_file_path_;

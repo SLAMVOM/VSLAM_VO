@@ -10,7 +10,8 @@ add_library(myslam SHARED
         viewer.cpp
         visual_odometry.cpp
         dataset.cpp
-        groundtruth.cpp)
+        groundtruth.cpp
+        output.cpp)
 
 target_link_libraries(myslam
         ${THIRD_PARTY_LIBS})
