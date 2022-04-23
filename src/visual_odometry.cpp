@@ -2,7 +2,7 @@
 //
 // Modified by: MT
 // First Edit: 2022-April-15
-// Previous Edit: 2022-April-22
+// Previous Edit: 2022-April-23
 
 #include "myslam/visual_odometry.h"
 #include <chrono>
@@ -68,7 +68,7 @@ void VisualOdometry::Run() {
     // In this setting, we can directly plot the translation from each T_wc to
     // obtain the (estimated) trajectory of the camera (as well as the vehicle).
     TrajectoryType poses_truth, poses_estimated;
-    for (int i = 0; i < frames_all.size(); i++) {
+    for (unsigned int i = 0; i < frames_all.size(); i++) { // index access works here because the first part of each frames_all element is a frame ID starting from 0
         poses_estimated.push_back(frames_all[i]->pose_.inverse());
     }
     poses_truth = ReadTrajectory(Config::Get<std::string>("groundtruth_dir")); // Read groundtruth from file
@@ -80,6 +80,14 @@ void VisualOdometry::Run() {
     std::cout << "Saving all keypoints to file." << std::endl;
     WritePointsToFile(Config::Get<std::string>("outputPoints_dir"), points_all);
     std::cout << "All points saved.\n" << std::endl;
+
+    // to save results as point cloud
+    // a "save_pointcloud" int flag stored in the config file to determine if the follows are executed
+    if (Config::Get<int>("save_pointcloud") > 0) { // flag sets to 1 as true, 0 as false
+      std::cout << "Start saving camera centers and point cloud." << std::endl;
+      WriteCloudToPLYFile(Config::Get<std::string>("outputCloud_dir"), frames_all, points_all);
+      std::cout << "Finished saving point cloud.\n" << std::endl;
+    }
 
     LOG(INFO) << "VO exit";
 }
