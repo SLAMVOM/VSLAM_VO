@@ -23,9 +23,6 @@
 
 using namespace std;
 
-// define the path to the groundtruth pose file
-// extern string groundtruth_file = "/home/mil/Miller/VSLAM/VO/testing_datasets/05.txt";
-
 // define a type to store the pose SE3 matrices
 typedef vector<Sophus::SE3d, Eigen::aligned_allocator<Sophus::SE3d>> TrajectoryType;
 

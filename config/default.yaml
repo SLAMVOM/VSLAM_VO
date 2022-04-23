@@ -2,7 +2,6 @@
 # data
 # change the following directory to the dataset directory
 dataset_dir: /media/mil/F418BADF18BA9FD2/KITTI/odometry/data_odometry_gray/dataset/sequences/07
-#dataset_dir: /home/mil/Miller/VSLAM/VO/testing_datasets/KITTI/sequences/05
 groundtruth_dir: /media/mil/F418BADF18BA9FD2/KITTI/odometry/data_odometry_poses/dataset/poses/07.txt
 
 # camera intrinsics
