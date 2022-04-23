@@ -3,13 +3,10 @@
 # change the following directory to the dataset directory
 dataset_dir: /media/mt/F418BADF18BA9FD2/KITTI/odometry/data_odometry_gray/dataset/sequences/04
 groundtruth_dir: /media/mt/F418BADF18BA9FD2/KITTI/odometry/data_odometry_poses/dataset/poses/04.txt
-outputPoints_dir: /home/mt/Miller/VSLAM/VO/VSLAMVO/result/key_points.txt
+outputPoints_dir: ../result/key_points.txt
 # sets save_pointcloud to <=0 as false; any other int > 0 as true
 save_pointcloud: 1
-outputCloud_dir: /home/mt/Miller/VSLAM/VO/VSLAMVO/result/point_cloud.ply
-
-#dataset_dir: /home/mt/Miller/VSLAM/VO/testing_datasets/KITTI/sequences/05
-#groundtruth_dir: /home/mt/Miller/VSLAM/VO/testing_datasets/05.txt
+outputCloud_dir: ../result/point_cloud.ply
 
 # camera intrinsics
 camera.fx: 517.3
