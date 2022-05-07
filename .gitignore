@@ -1,3 +1,5 @@
 build/
 bin/
 .zip
+default.yaml
+personal_note.txt
